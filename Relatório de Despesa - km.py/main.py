@@ -1,6 +1,5 @@
 import getpass
 import re
-from turtle import st
 from funções_km import abrir_portal, despesa_ida, despesa_volta
 
 user = input('Digite seu e-mail: ')
@@ -17,5 +16,5 @@ while not formato_data.match(data):
     data = str(input('Data errada! Digite a data novamente [DD/MM/AAAA]: '))
 
 abrir_portal(user, password)
-despesa_ida(data)
-despesa_volta(data)
+despesa_ida(data, end_partida, end_destino)
+despesa_volta(data, end_destino, end_partida)
