@@ -5,7 +5,7 @@ from time import sleep
 
 def abrir_portal(user, password):
     global lancamento_km
-    lancamento_km = webdriver.Chrome(executable_path=r'C:\Users\brtozzit\VSProjects\Python\Tetra Pak - Algar Tech.py\chromedriver.exe')      
+    lancamento_km = webdriver.Chrome()      
     lancamento_km.get('https://portal.expensemobi.com.br/#/login')
     lancamento_km.maximize_window()
     sleep(4)
@@ -16,7 +16,7 @@ def abrir_portal(user, password):
     lancamento_km.find_element(By.XPATH, '//*[@id="left"]/md-list/nav/div/ul/li[2]/a[5]').click() #Meus Relatórios
     sleep(5)
 
-def despesa_ida(data):
+def despesa_ida(data, end_partida, end_destino):
     #Criar despesa
     pyautogui.click(x=1839, y=697) #mais
     pyautogui.click(x=1750, y=771) #Nova Despesa KM
@@ -29,18 +29,18 @@ def despesa_ida(data):
     
     #Saída
     pyautogui.click(x=1377, y=428) 
-    pyautogui.write('Rua Abilio Ferreira Quental')
+    pyautogui.write(end_partida)
     sleep(2)
     pyautogui.press('tab')
 
     #Chegada
     pyautogui.click(x=1318, y=511)
-    pyautogui.write('Tetra Pak Monte Mor')
+    pyautogui.write(end_destino)
     sleep(2)
     pyautogui.press('tab')
     sleep(4)
 
-    #Selecionando cliente Tetra Pak - Monte Mor
+    #Selecionando o nome do cliente
     pyautogui.click(x=701, y=682)
     sleep(1.5) 
     pyautogui.click(x=586, y=794) 
@@ -53,14 +53,14 @@ def despesa_ida(data):
     sleep(2)
 
     #Observação
-    lancamento_km.find_element(By.XPATH, '//*[@id="content"]/md-content/div/div[2]/div/div[1]/div/form/div[12]/div/textarea').send_keys(str('Km rodado ao cliente Tetra Pak. Despesa 100% reembolsado pelo cliente.'))
+    lancamento_km.find_element(By.XPATH, '//*[@id="content"]/md-content/div/div[2]/div/div[1]/div/form/div[12]/div/textarea').send_keys(str('Deslocamento ao cliente. Todas as despesas de quilometragem serão pagas pelo cliente'))
 
     #Salvar
     lancamento_km.find_element(By.XPATH, '//*[@id="content"]/md-content/div/div[2]/div/div[1]/div/form/div[13]/div/button').click()
 
     sleep(5)
 
-def despesa_volta(data):
+def despesa_volta(data, end_destino, end_partida):
     #Nova Despesa KM
     pyautogui.click(x=1837, y=690)
     pyautogui.click(x=1750, y=771) 
@@ -73,19 +73,19 @@ def despesa_volta(data):
 
     #Saída
     pyautogui.click(x=1377, y=428) 
-    pyautogui.write('Tetra Pak Monte Mor')
+    pyautogui.write(end_destino)
     sleep(2)
     pyautogui.press('tab')
 
     #Chegada
     sleep(1)
     pyautogui.click(x=1318, y=511)
-    pyautogui.write('Rua Abilio Ferreira Quental')
+    pyautogui.write(end_partida)
     sleep(2)
     pyautogui.press('tab')
     sleep(4)
 
-    #Selecionando cliente Tetra Pak - Monte Mor
+    #Selecionando o nome do cliente
     pyautogui.click(x=701, y=682)
     sleep(1.5) 
     pyautogui.click(x=586, y=794) 
@@ -103,4 +103,5 @@ def despesa_volta(data):
     #Salvar
     lancamento_km.find_element(By.XPATH, '//*[@id="content"]/md-content/div/div[2]/div/div[1]/div/form/div[13]/div/button').click()
 
-    sleep(15)
+    sleep(10)
+    lancamento_km.quit()
